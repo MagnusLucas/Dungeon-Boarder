@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Board" format=3 uid="uid://cs6atnstsnprw"]
+
+[ext_resource type="Script" uid="uid://b4rfp5ts4h36v" path="res://data/board/board.gd" id="1_5vd7v"]
+
+[resource]
+script = ExtResource("1_5vd7v")
+tiles = Dictionary[Vector2i, bool]({
+Vector2i(2, 3): false,
+Vector2i(3, 3): false,
+Vector2i(3, 4): false
+})
+tile_coordinates = Vector2i(2, 0)
+metadata/_custom_type_script = "uid://b4rfp5ts4h36v"
