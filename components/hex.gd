@@ -1,0 +1,60 @@
+class_name Hex
+extends RefCounted
+
+
+enum Direction{
+	RIGHT,
+	BOTTOM_RIGHT,
+	BOTTOM_LEFT,
+	LEFT,
+	TOP_LEFT,
+	TOP_RIGHT
+}
+
+enum Point{
+	TOP,
+	TOP_RIGHT,
+	BOTTOM_RIGHT,
+	BOTTOM,
+	BOTTOM_LEFT,
+	TOP_LEFT
+}
+
+
+static func get_neighbours(position: Vector2i) -> Dictionary[Direction, Vector2i]:
+	const EVEN_ROW: Dictionary[Direction, Vector2i] = {
+		Direction.RIGHT : Vector2i(1, 0),
+		Direction.BOTTOM_RIGHT : Vector2i(0, 1),
+		Direction.BOTTOM_LEFT : Vector2i(-1, 1),
+		Direction.LEFT : Vector2i(-1, 0),
+		Direction.TOP_LEFT : Vector2i(-1, -1),
+		Direction.TOP_RIGHT : Vector2i(0, -1),
+	}
+	const ODD_ROW: Dictionary[Direction, Vector2i] = {
+		Direction.RIGHT : Vector2i(1, 0),
+		Direction.BOTTOM_RIGHT : Vector2i(1, 1),
+		Direction.BOTTOM_LEFT : Vector2i(0, 1),
+		Direction.LEFT : Vector2i(-1, 0),
+		Direction.TOP_LEFT : Vector2i(0, -1),
+		Direction.TOP_RIGHT : Vector2i(1, -1),
+	}
+	
+	var result := EVEN_ROW.duplicate() if position.y % 2 == 0 else ODD_ROW.duplicate()
+	for key in result:
+		result[key] += position
+	return result
+
+
+static func get_points(size: Vector2) -> Dictionary[Point, Vector2]:
+	const POINTS: Dictionary[Point, Vector2] = {
+		Point.TOP : Vector2(0.5, 0),
+		Point.TOP_RIGHT : Vector2(1, 0.25),
+		Point.BOTTOM_RIGHT : Vector2(1, 0.75),
+		Point.BOTTOM : Vector2(0.5, 1),
+		Point.BOTTOM_LEFT : Vector2(0, 0.75),
+		Point.TOP_LEFT : Vector2(0, 0.25),
+	}
+	var result := POINTS.duplicate()
+	for key in result:
+		result[key] = result[key] * size - size / 2
+	return result
