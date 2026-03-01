@@ -12,12 +12,12 @@ enum Direction{
 }
 
 enum Point{
-	TOP,
 	TOP_RIGHT,
 	BOTTOM_RIGHT,
 	BOTTOM,
 	BOTTOM_LEFT,
-	TOP_LEFT
+	TOP_LEFT,
+	TOP
 }
 
 

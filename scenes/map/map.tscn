@@ -7,12 +7,10 @@
 [ext_resource type="Resource" uid="uid://cs6atnstsnprw" path="res://data/board/player_2_2_board.tres" id="4_04w0f"]
 [ext_resource type="Resource" uid="uid://cudtpj183cavm" path="res://data/board/enemy_board.tres" id="5_sqgf4"]
 [ext_resource type="Script" uid="uid://dbt18mgu5gnu8" path="res://custom_nodes/hover_layer.gd" id="7_04w0f"]
-[ext_resource type="Script" uid="uid://cxmpct3twesbf" path="res://scenes/map/board_highlighter.gd" id="8_sqgf4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e0an3"]
 texture = ExtResource("2_wijl4")
-separation = Vector2i(0, 1)
-texture_region_size = Vector2i(120, 141)
+texture_region_size = Vector2i(122, 142)
 0:0/0 = 0
 0:1/0 = 0
 1:1/0 = 0
@@ -25,7 +23,7 @@ texture_region_size = Vector2i(120, 141)
 
 [sub_resource type="TileSet" id="TileSet_e0an3"]
 tile_shape = 3
-tile_size = Vector2i(120, 142)
+tile_size = Vector2i(122, 142)
 sources/0 = SubResource("TileSetAtlasSource_e0an3")
 
 [node name="Map" type="Node2D" unique_id=529501660]
@@ -35,12 +33,8 @@ enemy_board = ExtResource("5_sqgf4")
 
 [node name="TileLayer" type="TileMapLayer" parent="." unique_id=274058884]
 visible = false
-tile_map_data = PackedByteArray(0, 0, 0, 0, 2, 0, 2, 0, 1, 0, 1, 0, 0, 0, 1, 0, 2, 0, 2, 0, 1, 0, 1, 0, 0, 0, 2, 0, 2, 0, 2, 0, 1, 0, 1, 0, 0, 0)
 tile_set = SubResource("TileSet_e0an3")
 
 [node name="HoverLayer" type="TileMapLayer" parent="." unique_id=291463951]
 tile_set = SubResource("TileSet_e0an3")
 script = ExtResource("7_04w0f")
-
-[node name="BoardHighlighter" type="Node2D" parent="HoverLayer" unique_id=435622122]
-script = ExtResource("8_sqgf4")
