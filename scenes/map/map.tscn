@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://cs6atnstsnprw" path="res://data/board/player_2_2_board.tres" id="4_04w0f"]
 [ext_resource type="Resource" uid="uid://cudtpj183cavm" path="res://data/board/enemy_board.tres" id="5_sqgf4"]
 [ext_resource type="Script" uid="uid://dbt18mgu5gnu8" path="res://custom_nodes/hover_layer.gd" id="7_04w0f"]
+[ext_resource type="Script" uid="uid://dkdmyygn2i23v" path="res://components/boarder_drawer.gd" id="8_sqgf4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e0an3"]
 texture = ExtResource("2_wijl4")
@@ -38,3 +39,7 @@ tile_set = SubResource("TileSet_e0an3")
 [node name="HoverLayer" type="TileMapLayer" parent="." unique_id=291463951]
 tile_set = SubResource("TileSet_e0an3")
 script = ExtResource("7_04w0f")
+
+[node name="BoarderDrawer" type="Node2D" parent="HoverLayer" unique_id=245729690]
+script = ExtResource("8_sqgf4")
+metadata/_custom_type_script = "uid://dkdmyygn2i23v"

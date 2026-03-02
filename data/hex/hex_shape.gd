@@ -7,7 +7,7 @@ extends Resource
 		changed.emit()
 
 
-func _init(tilemap_coordinates: Array[Vector2i]) -> void:
+func _init(tilemap_coordinates: Array[Vector2i] = [Vector2i.ZERO]) -> void:
 	hex_coordinates = tilemap_coordinates
 
 

@@ -13,5 +13,5 @@ func _ready() -> void:
 	boards.append(enemy_board)
 	hover_layer.set_boards(boards)
 	for board in boards:
-		for tile in board.tiles:
+		for tile in board.get_tiles():
 			tile_layer.set_cell(tile, 0, board.tile_coordinates)

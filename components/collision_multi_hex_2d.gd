@@ -1,3 +1,4 @@
+@tool
 class_name CollisionMultiHex2D
 extends CollisionPolygon2D
 
@@ -12,7 +13,11 @@ func _init(hex_shape: HexShape, hex_size: Vector2) -> void:
 
 
 func set_shape(new_shape: HexShape) -> void:
+	if shape:
+		shape.changed.disconnect(_update_polygon)
 	shape = new_shape
+	if shape:
+		shape.changed.connect(_update_polygon)
 	_update_polygon()
 
 
