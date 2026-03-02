@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dpltxx7gd7dkx"]
 
-[ext_resource type="Script" uid="uid://baws805uqo0ee" path="res://components/multi_hex_shape.gd" id="2_cuyo6"]
+[ext_resource type="Script" uid="uid://baws805uqo0ee" path="res://components/collision_multi_hex_2d.gd" id="2_cuyo6"]
 
 [node name="Button" type="Area2D" unique_id=442210503]
 
