@@ -11,7 +11,8 @@
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e0an3"]
 texture = ExtResource("2_wijl4")
-texture_region_size = Vector2i(122, 142)
+separation = Vector2i(2, 2)
+texture_region_size = Vector2i(120, 140)
 0:0/0 = 0
 0:1/0 = 0
 1:1/0 = 0
@@ -24,7 +25,7 @@ texture_region_size = Vector2i(122, 142)
 
 [sub_resource type="TileSet" id="TileSet_e0an3"]
 tile_shape = 3
-tile_size = Vector2i(122, 142)
+tile_size = Vector2i(120, 140)
 sources/0 = SubResource("TileSetAtlasSource_e0an3")
 
 [node name="Map" type="Node2D" unique_id=529501660]
