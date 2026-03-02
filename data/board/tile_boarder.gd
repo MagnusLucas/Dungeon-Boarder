@@ -1,7 +1,6 @@
 class_name TileBoarder
 extends RefCounted
 
-
 var owner: Vector2i
 var direction: Hex.Direction
 

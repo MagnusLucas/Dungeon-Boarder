@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dpltxx7gd7dkx"]
+
+[ext_resource type="Script" uid="uid://baws805uqo0ee" path="res://components/multi_hex_shape.gd" id="2_cuyo6"]
+
+[node name="Button" type="Area2D" unique_id=442210503]
+
+[node name="CollisionMultiHex2D" type="CollisionPolygon2D" parent="." unique_id=771286889]
+polygon = PackedVector2Array(100, 25, 100, 75, 50, 100, 0, 75, 0, 25, 50, 0)
+script = ExtResource("2_cuyo6")
+hex_coordinates = Array[Vector2i]([Vector2i(0, 0)])
+size = Vector2(100, 100)
+metadata/_custom_type_script = "uid://baws805uqo0ee"
