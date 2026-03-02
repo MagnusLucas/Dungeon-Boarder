@@ -3,9 +3,6 @@ extends Area2D
 
 
 func _init(size: Vector2) -> void:
-	var collision_shape := CollisionShape2D.new()
+	var collision_shape := CollisionMultiHex2D.new()
+	collision_shape.set_size(size)
 	add_child(collision_shape)
-	collision_shape.shape = ConvexPolygonShape2D.new()
-	
-	var hex_points := Hex.get_points(size)
-	collision_shape.shape.points = hex_points.values()

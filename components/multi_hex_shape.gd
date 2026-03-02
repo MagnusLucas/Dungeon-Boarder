@@ -3,14 +3,13 @@ class_name CollisionMultiHex2D
 extends CollisionPolygon2D
 
 
-@export var hex_coordinates: Array[Vector2i]:
-	set(value):
-		hex_coordinates = value
-		polygon = get_points()
-@export var size: Vector2:
-	set(value):
-		size = value
-		polygon = get_points()
+@export var hex_coordinates: Array[Vector2i] = [Vector2i.ZERO]:
+	set = set_hex_coordinates
+@export var size: Vector2 = Vector2(100, 100): set = set_size
+
+
+func _ready() -> void:
+	polygon = get_points()
 
 
 func _find_boarder() -> TileBoarder:
@@ -50,6 +49,16 @@ func _get_hex_position(coordinates: Vector2i) -> Vector2:
 		return base_position + half_tile_offset
 	var odd_row_offset := size / 2 * Vector2(1, 0)
 	return base_position + odd_row_offset + half_tile_offset
+
+
+func set_hex_coordinates(new_coordinates: Array[Vector2i]) -> void:
+	hex_coordinates = new_coordinates
+	polygon = get_points()
+
+
+func set_size(new_size: Vector2) -> void:
+	size = new_size
+	polygon = get_points()
 
 
 func get_points() -> Array[Vector2]:
