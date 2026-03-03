@@ -38,7 +38,6 @@ script = ExtResource("2_e0an3")
 map_data = ExtResource("2_ph54e")
 
 [node name="TileLayer" type="TileMapLayer" parent="." unique_id=274058884]
-visible = false
 tile_set = SubResource("TileSet_e0an3")
 
 [node name="HoverLayer" type="TileMapLayer" parent="." unique_id=291463951]

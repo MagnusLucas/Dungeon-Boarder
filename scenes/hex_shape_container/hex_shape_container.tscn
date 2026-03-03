@@ -10,5 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7dq8g")
+min_hex_tile_size = Vector2(50, 50)
+fill_size = true
 
 [node name="Map" parent="." unique_id=529501660 instance=ExtResource("2_8lmdb")]

@@ -81,6 +81,6 @@ static func get_px_span(hexes: Array[Vector2i], hex_size: Vector2) -> Rect2:
 		if pos.y < min_y: min_y = pos.y
 		if pos.y  + hex_size.y > max_y: max_y = pos.y + hex_size.y
 	
-	var size := Vector2(max_x - min_x, max_y - min_y) * hex_size
+	var size := Vector2(max_x - min_x, max_y - min_y)
 	var position := Vector2(min_x, min_y)
 	return Rect2(position, size)

@@ -1,5 +1,5 @@
 class_name Map
-extends Node
+extends Node2D
 
 @export var map_data: MapData
 
@@ -18,3 +18,7 @@ func _ready() -> void:
 
 func get_shape() -> HexShape:
 	return map_data.get_joined_shape()
+
+
+func set_hex_size(new_size: Vector2) -> void:
+	scale = new_size / Vector2(hover_layer.tile_set.tile_size)
