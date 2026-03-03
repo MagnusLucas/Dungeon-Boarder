@@ -3,12 +3,6 @@ extends TileMapLayer
 
 var boards: Array[Board]
 
-@onready var boarder_drawer: BoarderDrawer = $BoarderDrawer
-
-
-func  _ready() -> void:
-	boarder_drawer.set_hex_size(tile_set.tile_size)
-
 
 func _on_tile_collider_mouse_entered(coordinates: Vector2i, board_owner: Board) -> void:
 	set_cell(coordinates, 0, board_owner.tile_coordinates)
@@ -18,12 +12,14 @@ func _on_tile_collider_mouse_exited(coordinates: Vector2i) -> void:
 	erase_cell(coordinates)
 
 
-func _on_board_collider_mouse_entered(board: Board) -> void:
-	boarder_drawer.set_shape(board.shape)
+func _on_board_collider_mouse_entered(collider: HexCollider, board: Board) -> void:
+	var boarder_drawer := BoarderDrawer.new(board.shape, tile_set.tile_size)
+	add_child(boarder_drawer)
+	collider.mouse_exited.connect(boarder_drawer.queue_free)
 
 
 func _on_board_collider_mouse_exited() -> void:
-	boarder_drawer.erase_shape()
+	pass
 
 
 func set_boards(new_boards: Array[Board]) -> void:
@@ -32,7 +28,8 @@ func set_boards(new_boards: Array[Board]) -> void:
 	for board in boards:
 		var board_collider := HexCollider.new(board.shape, tile_set.tile_size)
 		add_child(board_collider)
-		board_collider.mouse_entered.connect(_on_board_collider_mouse_entered.bind(board))
+		board_collider.mouse_entered.connect(
+			_on_board_collider_mouse_entered.bind(board_collider, board))
 		board_collider.mouse_exited.connect(_on_board_collider_mouse_exited)
 		
 		for tile in board.get_tiles():

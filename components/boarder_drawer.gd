@@ -6,22 +6,14 @@ extends Node2D
 @export var color: Color
 
 
+func _init(hex_shape: HexShape, single_hex_size: Vector2, 
+		boarder_color := Color.BLACK) -> void:
+	shape = hex_shape
+	hex_size = single_hex_size
+	color = boarder_color
+
+
 func _draw() -> void:
-	if shape:
-		var points := shape.get_points(hex_size)
-		points.append(points[0])
-		draw_polyline(points, color, 3)
-
-
-func set_shape(new_shape: HexShape) -> void:
-	shape = new_shape
-	queue_redraw()
-
-
-func erase_shape() -> void:
-	shape = null
-	queue_redraw()
-
-
-func set_hex_size(new_size: Vector2) -> void:
-	hex_size = new_size
+	var points := shape.get_points(hex_size)
+	points.append(points[0])
+	draw_polyline(points, color, 3)

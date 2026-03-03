@@ -1,10 +1,10 @@
 class_name CharacterHexTexture
 extends TextureRect
 
-var character: Character
+var character: CharacterData
 
 
-func _init(character_data: Character, bounding_rect_size: Vector2) -> void:
+func _init(character_data: CharacterData, bounding_rect_size: Vector2) -> void:
 	expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	size = bounding_rect_size
 	texture = AtlasCoordsTexture.new()
