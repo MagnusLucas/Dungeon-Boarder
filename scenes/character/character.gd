@@ -9,6 +9,7 @@ var textures: Array[TextureRect]
 
 
 func _on_collider_mouse_entered() -> void:
+	print("draw!")
 	var boarder_drawer := BoarderDrawer.new(character_data.shape, size)
 	add_child(boarder_drawer)
 	collider.mouse_exited.connect(boarder_drawer.queue_free)

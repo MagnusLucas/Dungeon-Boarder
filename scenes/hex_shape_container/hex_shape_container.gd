@@ -39,7 +39,6 @@ func _set_child_position(child: Node2D, shape: HexShape) -> void:
 	# Keeping aspect ratio
 	var lower_max := minf(max_board_scale.x, max_board_scale.y)
 	max_board_scale = Vector2(lower_max, lower_max)
-	print(size)
 	
 	var max_hex_tile_size := max_board_scale * min_hex_tile_size
 	var max_board := Hex.get_px_span(shape.hex_coordinates, max_hex_tile_size)

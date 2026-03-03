@@ -16,7 +16,7 @@ Vector2i(0, 0): ExtResource("5_ggavs")
 })
 metadata/_custom_type_script = "uid://csm3ub1854mer"
 
-[node name="Tawern" type="PanelContainer" unique_id=1414965819]
+[node name="Tavern" type="PanelContainer" unique_id=1414965819]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
