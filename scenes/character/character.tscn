@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://dpltxx7gd7dkx"]
 
 [ext_resource type="Script" uid="uid://bx5nglyp68o0" path="res://scenes/character/character.gd" id="1_6nn2t"]
+[ext_resource type="Resource" uid="uid://dg2ea6mpsuq04" path="res://data/character/parrrate.tres" id="2_cuyo6"]
 
 [node name="Character" type="Node2D" unique_id=1952265889]
 script = ExtResource("1_6nn2t")
+character_data = ExtResource("2_cuyo6")
