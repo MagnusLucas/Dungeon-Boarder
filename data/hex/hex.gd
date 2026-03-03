@@ -58,3 +58,11 @@ static func get_points(size: Vector2) -> Dictionary[Point, Vector2]:
 	for key in result:
 		result[key] = result[key] * size - size / 2
 	return result
+
+
+static func get_hex_position(coordinates: Vector2i, hex_size: Vector2) -> Vector2:
+	var base_position := Vector2(coordinates) * hex_size * Vector2(1, 0.75)
+	if coordinates.y % 2 == 0:
+		return base_position
+	var odd_row_offset := hex_size / 2 * Vector2(1, 0)
+	return base_position + odd_row_offset

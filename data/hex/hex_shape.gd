@@ -41,13 +41,9 @@ func _get_boarder() -> Array[TileBoarder]:
 	return result
 
 
-func _get_hex_position(coordinates: Vector2i, hex_size: Vector2) -> Vector2:
+func _get_hex_position_offset(coordinates: Vector2i, hex_size: Vector2) -> Vector2:
 	var half_tile_offset := hex_size / 2
-	var base_position := Vector2(coordinates) * hex_size * Vector2(1, 0.75)
-	if coordinates.y % 2 == 0:
-		return base_position + half_tile_offset
-	var odd_row_offset := hex_size / 2 * Vector2(1, 0)
-	return base_position + odd_row_offset + half_tile_offset
+	return Hex.get_hex_position(coordinates, hex_size) + half_tile_offset
 
 
 func get_points(hex_size: Vector2) -> Array[Vector2]:
@@ -56,5 +52,5 @@ func get_points(hex_size: Vector2) -> Array[Vector2]:
 	for tile_boarder in boarder:
 		points.append(
 			tile_boarder.get_begin(hex_size) +
-			_get_hex_position(tile_boarder.owner, hex_size))
+			_get_hex_position_offset(tile_boarder.owner, hex_size))
 	return points
