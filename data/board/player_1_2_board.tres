@@ -11,5 +11,5 @@ metadata/_custom_type_script = "uid://cf3ebll45r2pe"
 [resource]
 script = ExtResource("1_ctk3h")
 shape = SubResource("Resource_b3sjd")
-tile_coordinates = Vector2i(1, 0)
+tile_coordinates = Vector2i(2, 0)
 metadata/_custom_type_script = "uid://b4rfp5ts4h36v"
