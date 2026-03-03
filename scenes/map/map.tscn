@@ -1,11 +1,8 @@
 [gd_scene format=3 uid="uid://jycbtgj6v1ic"]
 
 [ext_resource type="Script" uid="uid://fpwj4fhbr8vl" path="res://scenes/map/map.gd" id="2_e0an3"]
-[ext_resource type="Script" uid="uid://b4rfp5ts4h36v" path="res://data/board/board.gd" id="2_p5pve"]
+[ext_resource type="Resource" uid="uid://bo6pkdc85eq42" path="res://data/map/placeholder_fight.tres" id="2_ph54e"]
 [ext_resource type="Texture2D" uid="uid://e4yvbntghhu4" path="res://assets/hexagonAll_sheet.png" id="2_wijl4"]
-[ext_resource type="Resource" uid="uid://bqkhfm4fjqn48" path="res://data/board/player_1_2_board.tres" id="3_jcaow"]
-[ext_resource type="Resource" uid="uid://cs6atnstsnprw" path="res://data/board/player_2_2_board.tres" id="4_04w0f"]
-[ext_resource type="Resource" uid="uid://cudtpj183cavm" path="res://data/board/enemy_board.tres" id="5_sqgf4"]
 [ext_resource type="Script" uid="uid://dbt18mgu5gnu8" path="res://custom_nodes/hover_layer.gd" id="7_04w0f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e0an3"]
@@ -21,6 +18,15 @@ texture_region_size = Vector2i(120, 140)
 2:0/0 = 0
 2:1/0 = 0
 0:2/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+4:1/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+5:1/0 = 0
+5:2/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_e0an3"]
 tile_shape = 3
@@ -29,8 +35,7 @@ sources/0 = SubResource("TileSetAtlasSource_e0an3")
 
 [node name="Map" type="Node2D" unique_id=529501660]
 script = ExtResource("2_e0an3")
-player_boards = Array[ExtResource("2_p5pve")]([ExtResource("3_jcaow"), ExtResource("4_04w0f")])
-enemy_board = ExtResource("5_sqgf4")
+map_data = ExtResource("2_ph54e")
 
 [node name="TileLayer" type="TileMapLayer" parent="." unique_id=274058884]
 visible = false

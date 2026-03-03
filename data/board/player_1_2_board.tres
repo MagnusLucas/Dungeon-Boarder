@@ -5,7 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_b3sjd"]
 script = ExtResource("2_xwo2q")
-hex_coordinates = Array[Vector2i]([Vector2i(0, 4), Vector2i(1, 4), Vector2i(1, 5)])
+hex_coordinates = Array[Vector2i]([Vector2i(0, 0), Vector2i(-1, 1), Vector2i(0, 1)])
 metadata/_custom_type_script = "uid://cf3ebll45r2pe"
 
 [resource]

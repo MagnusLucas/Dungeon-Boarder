@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="MapData" format=3 uid="uid://bo6pkdc85eq42"]
+
+[ext_resource type="Script" uid="uid://b4rfp5ts4h36v" path="res://data/board/board.gd" id="1_gn3t4"]
+[ext_resource type="Resource" uid="uid://bqkhfm4fjqn48" path="res://data/board/player_1_2_board.tres" id="2_kevi2"]
+[ext_resource type="Resource" uid="uid://cs6atnstsnprw" path="res://data/board/player_2_2_board.tres" id="3_3am6f"]
+[ext_resource type="Script" uid="uid://csm3ub1854mer" path="res://data/map/map_data.gd" id="3_kevi2"]
+[ext_resource type="Resource" uid="uid://cudtpj183cavm" path="res://data/board/enemy_board.tres" id="4_kevi2"]
+
+[resource]
+script = ExtResource("3_kevi2")
+boards = Dictionary[Vector2i, ExtResource("1_gn3t4")]({
+Vector2i(1, 4): ExtResource("2_kevi2"),
+Vector2i(2, 0): ExtResource("4_kevi2"),
+Vector2i(4, 4): ExtResource("3_3am6f")
+})
+metadata/_custom_type_script = "uid://csm3ub1854mer"
