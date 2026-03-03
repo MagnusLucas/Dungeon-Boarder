@@ -2,8 +2,18 @@
 
 [ext_resource type="Script" uid="uid://dlya18c421hx7" path="res://scenes/hex_shape_container/hex_shape_container.gd" id="1_ky0rh"]
 [ext_resource type="PackedScene" uid="uid://jycbtgj6v1ic" path="res://scenes/map/map.tscn" id="1_m558e"]
+[ext_resource type="Script" uid="uid://b4rfp5ts4h36v" path="res://data/board/board.gd" id="2_ma7nw"]
+[ext_resource type="Script" uid="uid://csm3ub1854mer" path="res://data/map/map_data.gd" id="3_yfqaf"]
+[ext_resource type="Resource" uid="uid://bqkhfm4fjqn48" path="res://data/board/player_1_2_board.tres" id="4_oo35x"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oo35x"]
+
+[sub_resource type="Resource" id="Resource_yfqaf"]
+script = ExtResource("3_yfqaf")
+boards = Dictionary[Vector2i, ExtResource("2_ma7nw")]({
+Vector2i(0, 0): ExtResource("4_oo35x")
+})
+metadata/_custom_type_script = "uid://csm3ub1854mer"
 
 [node name="Tawern" type="PanelContainer" unique_id=1414965819]
 anchors_preset = 15
@@ -24,6 +34,8 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("1_ky0rh")
+min_hex_tile_size = Vector2(30.045, 30)
 metadata/_custom_type_script = "uid://dlya18c421hx7"
 
 [node name="Map" parent="VBoxContainer/HexShapeContainer" unique_id=529501660 instance=ExtResource("1_m558e")]
+map_data = SubResource("Resource_yfqaf")

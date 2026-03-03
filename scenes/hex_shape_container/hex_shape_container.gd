@@ -15,7 +15,14 @@ func _init() -> void:
 
 func _on_child_entered_tree(child: Node) -> void:
 	if child is Map or child is Character:
-		child.ready.connect(_set_child_position.bind(child, child.get_shape()))
+		# Omg
+		# You'd think ready.connect would be enough
+		# But it actually makes perfect sense that it isn't
+		# Since we don't know the size of this container, it depends on parent
+		# so also root of scene.
+		# This should happen before it first draws to screen, I think
+		draw.connect(_set_child_position.bind(child, child.get_shape()),
+				CONNECT_ONE_SHOT)
 
 
 func _set_child_position(child: Node2D, shape: HexShape) -> void:
@@ -32,6 +39,7 @@ func _set_child_position(child: Node2D, shape: HexShape) -> void:
 	# Keeping aspect ratio
 	var lower_max := minf(max_board_scale.x, max_board_scale.y)
 	max_board_scale = Vector2(lower_max, lower_max)
+	print(size)
 	
 	var max_hex_tile_size := max_board_scale * min_hex_tile_size
 	var max_board := Hex.get_px_span(shape.hex_coordinates, max_hex_tile_size)
