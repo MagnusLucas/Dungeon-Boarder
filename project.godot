@@ -11,7 +11,12 @@ config_version=5
 [application]
 
 config/name="Dungeon Boarder"
-config/features=PackedStringArray("4.6", "GL Compatibility")
+run/main_scene="uid://jycbtgj6v1ic"
+config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
+
+[autoload]
+
+NetworkManager="*uid://djaodfmco3gfj"
 
 [dotnet]
 
