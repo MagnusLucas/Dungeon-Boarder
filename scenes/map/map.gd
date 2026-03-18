@@ -1,17 +1,24 @@
 class_name Map
-extends Node
+extends Node2D
 
-@export var player_boards: Array[Board]
-@export var enemy_board: Board
+@export var map_data: MapData
 
 @onready var tile_layer: TileMapLayer = $TileLayer
 @onready var hover_layer: HoverLayer = $HoverLayer
 
 
 func _ready() -> void:
-	var boards := player_boards
-	boards.append(enemy_board)
+	var boards := map_data.boards
 	hover_layer.set_boards(boards)
-	for board in boards:
-		for tile in board.tiles:
-			tile_layer.set_cell(tile, 0, board.tile_coordinates)
+	for board_coords in boards:
+		var board := boards[board_coords]
+		for tile in board.get_tiles():
+			tile_layer.set_cell(tile + board_coords, 0, board.tile_coordinates)
+
+
+func get_shape() -> HexShape:
+	return map_data.get_joined_shape()
+
+
+func set_hex_size(new_size: Vector2) -> void:
+	scale = new_size / Vector2(hover_layer.tile_set.tile_size)

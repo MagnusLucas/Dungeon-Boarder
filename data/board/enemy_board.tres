@@ -1,15 +1,15 @@
 [gd_resource type="Resource" script_class="Board" format=3 uid="uid://cudtpj183cavm"]
 
 [ext_resource type="Script" uid="uid://b4rfp5ts4h36v" path="res://data/board/board.gd" id="1_mc7dn"]
+[ext_resource type="Script" uid="uid://cf3ebll45r2pe" path="res://data/hex/hex_shape.gd" id="2_ajump"]
+
+[sub_resource type="Resource" id="Resource_v0u4l"]
+script = ExtResource("2_ajump")
+hex_coordinates = Array[Vector2i]([Vector2i(1, 0), Vector2i(2, 0), Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1)])
+metadata/_custom_type_script = "uid://cf3ebll45r2pe"
 
 [resource]
 script = ExtResource("1_mc7dn")
-tiles = Dictionary[Vector2i, bool]({
-Vector2i(0, 0): false,
-Vector2i(0, 1): false,
-Vector2i(1, 0): false,
-Vector2i(1, 1): false,
-Vector2i(2, 0): false
-})
+shape = SubResource("Resource_v0u4l")
 tile_coordinates = Vector2i(0, 2)
 metadata/_custom_type_script = "uid://b4rfp5ts4h36v"

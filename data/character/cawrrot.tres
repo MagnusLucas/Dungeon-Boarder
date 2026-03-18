@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://d4bkcfavqx60i"]
+
+[ext_resource type="Script" uid="uid://bwr6353n0ukap" path="res://data/character/character_data.gd" id="1_bxq4c"]
+[ext_resource type="Script" uid="uid://cf3ebll45r2pe" path="res://data/hex/hex_shape.gd" id="2_to0cy"]
+
+[sub_resource type="Resource" id="Resource_hoidv"]
+script = ExtResource("2_to0cy")
+hex_coordinates = Array[Vector2i]([Vector2i(0, 0)])
+metadata/_custom_type_script = "uid://cf3ebll45r2pe"
+
+[resource]
+script = ExtResource("1_bxq4c")
+name = "Cawrrot"
+texture_coordinates = Vector2i(1, 2)
+shape = SubResource("Resource_hoidv")
+metadata/_custom_type_script = "uid://bwr6353n0ukap"

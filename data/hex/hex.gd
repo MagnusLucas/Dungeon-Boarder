@@ -58,3 +58,29 @@ static func get_points(size: Vector2) -> Dictionary[Point, Vector2]:
 	for key in result:
 		result[key] = result[key] * size - size / 2
 	return result
+
+
+static func get_hex_position(coordinates: Vector2i, hex_size: Vector2) -> Vector2:
+	var base_position := Vector2(coordinates) * hex_size * Vector2(1, 0.75)
+	if coordinates.y % 2 == 0:
+		return base_position
+	var odd_row_offset := hex_size / 2 * Vector2(1, 0)
+	return base_position + odd_row_offset
+
+
+static func get_px_span(hexes: Array[Vector2i], hex_size: Vector2) -> Rect2:
+	var min_x := INF
+	var max_x := -INF
+	var min_y := INF
+	var max_y := -INF
+	
+	for hex in hexes:
+		var pos := get_hex_position(hex, hex_size)
+		if pos.x < min_x: min_x = pos.x
+		if pos.x + hex_size.x > max_x: max_x = pos.x + hex_size.x
+		if pos.y < min_y: min_y = pos.y
+		if pos.y  + hex_size.y > max_y: max_y = pos.y + hex_size.y
+	
+	var size := Vector2(max_x - min_x, max_y - min_y)
+	var position := Vector2(min_x, min_y)
+	return Rect2(position, size)
