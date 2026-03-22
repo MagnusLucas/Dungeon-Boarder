@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://fpwj4fhbr8vl" path="res://scenes/map/map.gd" id="2_e0an3"]
 [ext_resource type="Resource" uid="uid://bo6pkdc85eq42" path="res://data/map/placeholder_fight.tres" id="2_ph54e"]
 [ext_resource type="Texture2D" uid="uid://e4yvbntghhu4" path="res://assets/hexagonAll_sheet.png" id="2_wijl4"]
+[ext_resource type="Script" uid="uid://dhxr2q1xduujf" path="res://game/GameManager.cs" id="5_fcby6"]
 [ext_resource type="Script" uid="uid://dbt18mgu5gnu8" path="res://custom_nodes/hover_layer.gd" id="7_04w0f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e0an3"]
@@ -43,3 +44,6 @@ tile_set = SubResource("TileSet_e0an3")
 [node name="HoverLayer" type="TileMapLayer" parent="." unique_id=291463951]
 tile_set = SubResource("TileSet_e0an3")
 script = ExtResource("7_04w0f")
+
+[node name="GameManager" type="Node" parent="." unique_id=309771299]
+script = ExtResource("5_fcby6")

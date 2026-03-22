@@ -4,6 +4,9 @@ using Godot.Collections;
 public partial class NetworkManager : Node
 {
 	public static NetworkManager Instance { get; private set; }
+	
+	public enum BackendType { ENet, Steam }
+	public BackendType CurrentBackend { get; private set; } = BackendType.ENet;
 
 	[Signal] public delegate void PlayerConnectedEventHandler(int peerId, Dictionary<string, string> playerInfo);
 	[Signal] public delegate void PlayerDisconnectedEventHandler(int peerId);
@@ -11,6 +14,8 @@ public partial class NetworkManager : Node
 
 	public PlayerList PlayerList { get; private set; }
 	public LobbyManager LobbyManager { get; private set; }
+	
+	public SteamManager SteamManager { get; private set; }
 
 	public override void _Ready()
 	{
@@ -24,12 +29,24 @@ public partial class NetworkManager : Node
 		LobbyManager.Name = "LobbyManager";
 		AddChild(LobbyManager);
 
-
+		SteamManager = new SteamManager();
+		SteamManager.Name = "SteamManager";
+		AddChild(SteamManager);
+		
 		Multiplayer.PeerConnected += OnPeerConnected;
 		Multiplayer.PeerDisconnected += OnPeerDisconnected;
 		Multiplayer.ConnectedToServer += OnConnectOk;
 		Multiplayer.ConnectionFailed += OnConnectionFail;
 		Multiplayer.ServerDisconnected += OnServerDisconnected;
+		
+		if (CurrentBackend == BackendType.Steam)
+		{
+			GD.Print("[Network] Using Steam backend.");
+		}
+		else
+		{
+			GD.Print("[Network] Using ENet backend.");
+		}
 	}
 
 	public Error CreateGame() => LobbyManager.CreateGame();
@@ -68,6 +85,18 @@ public partial class NetworkManager : Node
 		PlayerList.Clear();
 		GD.Print("Server disconnected");
 		EmitSignal(SignalName.ServerDisconnected);
+	}
+	
+	public void StartGame(string scenePath)
+	{
+		if (!Multiplayer.IsServer()) return;
+		Rpc(MethodName.LoadGame, scenePath);
+	}
+
+	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+	private void LoadGame(string scenePath)
+	{
+		GetTree().ChangeSceneToFile(scenePath);
 	}
 	
 }

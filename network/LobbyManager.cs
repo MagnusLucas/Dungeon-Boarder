@@ -22,7 +22,7 @@ public partial class LobbyManager : Node
 			_peer = null;
 			return error;
 		}
-
+		
 		NetworkManager.Instance.Multiplayer.MultiplayerPeer = _peer;
 		GD.Print("Server created");
 

@@ -3,6 +3,7 @@ extends Node2D
 @onready var host_button = $VBoxContainer/HBoxContainer/Host
 @onready var join_button = $VBoxContainer/HBoxContainer/Join
 @onready var test_message_button = $VBoxContainer/HBoxContainer/TestMessage
+@onready var start_game_button = $VBoxContainer/StartGame
 @onready var player_list = $ItemList
 @onready var line_edit = $VBoxContainer/LineEdit2
 
@@ -10,6 +11,7 @@ func _ready():
 	host_button.pressed.connect(_on_host_pressed)
 	join_button.pressed.connect(_on_join_pressed)
 	test_message_button.pressed.connect(_on_test_message_pressed)
+	start_game_button.pressed.connect(_on_start_game_pressed)
 	
 	NetworkManager.PlayerConnected.connect(_on_player_connected)
 	NetworkManager.PlayerDisconnected.connect(_on_player_disconnected)
@@ -25,6 +27,9 @@ func _on_join_pressed():
 
 func _on_test_message_pressed():
 	NetworkManager.BroadcastTestMessage("Everything goes wrong")
+	
+func _on_start_game_pressed():
+	NetworkManager.StartGame("res://scenes/map/map.tscn")
 
 func _on_player_connected(_peer_id, _player_info):
 	_refresh_player_list()
