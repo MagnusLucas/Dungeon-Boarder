@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dungeon Boarder", "Dungeon Boarder.csproj", "{192B577E-D659-4A34-9098-3A1E34761A5B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dungeon-Boarder", "Dungeon-Boarder.csproj", "{192B577E-D659-4A34-9098-3A1E34761A5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Dungeon Boarder"
+config/name="Dungeon-Boarder"
 run/main_scene="uid://jycbtgj6v1ic"
 config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
 
@@ -20,7 +20,7 @@ NetworkManager="*uid://djaodfmco3gfj"
 
 [dotnet]
 
-project/assembly_name="Dungeon Boarder"
+project/assembly_name="Dungeon-Boarder"
 
 [physics]
 
