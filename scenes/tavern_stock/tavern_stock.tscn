@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://b3qw1sjn3dylg"]
+
+[ext_resource type="Script" uid="uid://cdu5d55jp8jy" path="res://scenes/tavern_stock/tavern_stock.gd" id="1_fxhfh"]
+[ext_resource type="Script" uid="uid://dlya18c421hx7" path="res://scenes/hex_shape_container/hex_shape_container.gd" id="1_sb01j"]
+[ext_resource type="Resource" uid="uid://c44nw1qrrydse" path="res://data/character_pool/character_pool.tres" id="2_8mjvn"]
+[ext_resource type="PackedScene" uid="uid://dpltxx7gd7dkx" path="res://scenes/character/character.tscn" id="2_fxhfh"]
+[ext_resource type="Resource" uid="uid://d4bkcfavqx60i" path="res://data/character/cawrrot.tres" id="3_8mjvn"]
+[ext_resource type="Resource" uid="uid://delqhkscebrip" path="res://data/character/yourr.tres" id="4_uaimj"]
+
+[node name="TavernStock" type="HBoxContainer" unique_id=1907181505]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+script = ExtResource("1_fxhfh")
+character_pool = ExtResource("2_8mjvn")
+
+[node name="HexShapeContainer" type="Container" parent="." unique_id=91350261]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("1_sb01j")
+fill_size = true
+metadata/_custom_type_script = "uid://dlya18c421hx7"
+
+[node name="Character" parent="HexShapeContainer" unique_id=1952265889 instance=ExtResource("2_fxhfh")]
+
+[node name="HexShapeContainer2" type="Container" parent="." unique_id=389689444]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("1_sb01j")
+min_hex_tile_size = Vector2(100, 115)
+metadata/_custom_type_script = "uid://dlya18c421hx7"
+
+[node name="Character" parent="HexShapeContainer2" unique_id=1394678596 instance=ExtResource("2_fxhfh")]
+character_data = ExtResource("3_8mjvn")
+
+[node name="HexShapeContainer3" type="Container" parent="." unique_id=829184567]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("1_sb01j")
+min_hex_tile_size = Vector2(100, 115)
+metadata/_custom_type_script = "uid://dlya18c421hx7"
+
+[node name="Character" parent="HexShapeContainer3" unique_id=701332652 instance=ExtResource("2_fxhfh")]
+character_data = ExtResource("4_uaimj")
+
+[node name="HexShapeContainer4" type="Container" parent="." unique_id=723712329]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("1_sb01j")
+min_hex_tile_size = Vector2(100, 115)
+metadata/_custom_type_script = "uid://dlya18c421hx7"
+
+[node name="Character" parent="HexShapeContainer4" unique_id=192033784 instance=ExtResource("2_fxhfh")]
+character_data = ExtResource("4_uaimj")

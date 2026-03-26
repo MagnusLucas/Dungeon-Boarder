@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CharacterPool" format=3 uid="uid://c44nw1qrrydse"]
+
+[ext_resource type="Script" uid="uid://bwr6353n0ukap" path="res://data/character/character_data.gd" id="1_rwqpj"]
+[ext_resource type="Resource" uid="uid://dg2ea6mpsuq04" path="res://data/character/parrrate.tres" id="2_c7ebc"]
+[ext_resource type="Script" uid="uid://cts8hsfajkj6i" path="res://data/character_pool/character_pool.gd" id="2_gwfje"]
+[ext_resource type="Resource" uid="uid://delqhkscebrip" path="res://data/character/yourr.tres" id="3_vqq6t"]
+[ext_resource type="Resource" uid="uid://d4bkcfavqx60i" path="res://data/character/cawrrot.tres" id="4_p3l6n"]
+
+[resource]
+script = ExtResource("2_gwfje")
+characters = Dictionary[ExtResource("1_rwqpj"), int]({
+ExtResource("2_c7ebc"): 3,
+ExtResource("3_vqq6t"): 1,
+ExtResource("4_p3l6n"): 5
+})
+metadata/_custom_type_script = "uid://cts8hsfajkj6i"

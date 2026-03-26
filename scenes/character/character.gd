@@ -1,6 +1,8 @@
 class_name Character
 extends Node2D
 
+signal pick_up_requested
+
 @export var character_data: CharacterData: set = set_character
 @export var size := Vector2(100, 200 / sqrt(3))
 
@@ -34,6 +36,7 @@ func _set_textures() -> void:
 func _set_collider() -> void:
 	collider = HexCollider.new(character_data.shape, size, size/2)
 	collider.mouse_entered.connect(_on_collider_mouse_entered)
+	collider.left_clicked.connect(pick_up_requested.emit)
 	add_child(collider)
 
 

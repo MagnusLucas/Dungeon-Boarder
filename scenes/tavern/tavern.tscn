@@ -1,11 +1,9 @@
 [gd_scene format=3 uid="uid://cal1ohqqw8dcv"]
 
+[ext_resource type="PackedScene" uid="uid://b3qw1sjn3dylg" path="res://scenes/tavern_stock/tavern_stock.tscn" id="1_mwr1b"]
 [ext_resource type="Script" uid="uid://dlya18c421hx7" path="res://scenes/hex_shape_container/hex_shape_container.gd" id="1_ta2y0"]
-[ext_resource type="PackedScene" uid="uid://dpltxx7gd7dkx" path="res://scenes/character/character.tscn" id="2_mwr1b"]
-[ext_resource type="Resource" uid="uid://d4bkcfavqx60i" path="res://data/character/cawrrot.tres" id="3_7ejvm"]
 [ext_resource type="PackedScene" uid="uid://jycbtgj6v1ic" path="res://scenes/map/map.tscn" id="3_ewmal"]
 [ext_resource type="Script" uid="uid://b4rfp5ts4h36v" path="res://data/board/board.gd" id="4_7ejvm"]
-[ext_resource type="Resource" uid="uid://delqhkscebrip" path="res://data/character/yourr.tres" id="4_ggavs"]
 [ext_resource type="Resource" uid="uid://bqkhfm4fjqn48" path="res://data/board/player_1_2_board.tres" id="5_ggavs"]
 [ext_resource type="Script" uid="uid://csm3ub1854mer" path="res://data/map/map_data.gd" id="6_lo8vo"]
 
@@ -41,48 +39,8 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_oo35x")
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=498302665]
 layout_mode = 2
 
-[node name="Shop" type="HBoxContainer" parent="VBoxContainer" unique_id=1880065497]
+[node name="TavernStock" parent="VBoxContainer" unique_id=1907181505 instance=ExtResource("1_mwr1b")]
 layout_mode = 2
-size_flags_vertical = 3
-
-[node name="HexShapeContainer" type="Container" parent="VBoxContainer/Shop" unique_id=797026955]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("1_ta2y0")
-min_hex_tile_size = Vector2(100, 115)
-metadata/_custom_type_script = "uid://dlya18c421hx7"
-
-[node name="Character" parent="VBoxContainer/Shop/HexShapeContainer" unique_id=1952265889 instance=ExtResource("2_mwr1b")]
-
-[node name="HexShapeContainer2" type="Container" parent="VBoxContainer/Shop" unique_id=454019170]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("1_ta2y0")
-min_hex_tile_size = Vector2(100, 115)
-metadata/_custom_type_script = "uid://dlya18c421hx7"
-
-[node name="Character" parent="VBoxContainer/Shop/HexShapeContainer2" unique_id=849144661 instance=ExtResource("2_mwr1b")]
-character_data = ExtResource("3_7ejvm")
-
-[node name="HexShapeContainer3" type="Container" parent="VBoxContainer/Shop" unique_id=850919656]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("1_ta2y0")
-min_hex_tile_size = Vector2(100, 115)
-metadata/_custom_type_script = "uid://dlya18c421hx7"
-
-[node name="Character" parent="VBoxContainer/Shop/HexShapeContainer3" unique_id=2091754439 instance=ExtResource("2_mwr1b")]
-character_data = ExtResource("4_ggavs")
-
-[node name="HexShapeContainer4" type="Container" parent="VBoxContainer/Shop" unique_id=1896840760]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("1_ta2y0")
-min_hex_tile_size = Vector2(100, 115)
-metadata/_custom_type_script = "uid://dlya18c421hx7"
-
-[node name="Character" parent="VBoxContainer/Shop/HexShapeContainer4" unique_id=831776305 instance=ExtResource("2_mwr1b")]
-character_data = ExtResource("4_ggavs")
 
 [node name="HexShapeContainer" type="Container" parent="VBoxContainer" unique_id=74302021]
 layout_mode = 2
