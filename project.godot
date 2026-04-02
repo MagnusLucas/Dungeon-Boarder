@@ -22,6 +22,12 @@ NetworkManager="*uid://djaodfmco3gfj"
 
 project/assembly_name="Dungeon-Boarder"
 
+[layer_names]
+
+2d_physics/layer_1="boards"
+2d_physics/layer_2="characters"
+2d_physics/layer_3="node_mover"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

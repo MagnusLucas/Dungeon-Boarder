@@ -56,7 +56,10 @@ metadata/_custom_type_script = "uid://dlya18c421hx7"
 [node name="Map" parent="StockAndMap/HexShapeContainer" unique_id=529501660 instance=ExtResource("3_ewmal")]
 map_data = SubResource("Resource_yfqaf")
 
-[node name="Node2DMover" type="Node2D" parent="StockAndMap" unique_id=1462724687]
+[node name="Node2DMover" type="Area2D" parent="StockAndMap" unique_id=474004210]
+collision_layer = 4
+collision_mask = 3
+monitorable = false
 script = ExtResource("7_mwr1b")
 metadata/_custom_type_script = "uid://b8xmnyj3b6sxc"
 

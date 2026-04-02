@@ -35,6 +35,8 @@ func _set_textures() -> void:
 
 func _set_collider() -> void:
 	collider = HexCollider.new(character_data.shape, size, size/2)
+	collider.collision_layer = 2 # is character
+	collider.collision_mask = 1 # sees boards
 	collider.mouse_entered.connect(_on_collider_mouse_entered)
 	collider.left_clicked.connect(pick_up_requested.emit)
 	add_child(collider)

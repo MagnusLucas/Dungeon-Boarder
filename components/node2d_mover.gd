@@ -1,10 +1,16 @@
 class_name Node2DMover
-extends Node2D
+extends Area2D
 
 signal place_down_requested(node: Node)
 
 var held_node: Node2D
 var old_node_parent: Node
+
+
+func _ready() -> void:
+	var cs := CollisionShape2D.new()
+	cs.shape = RectangleShape2D.new()
+	cs.shape.size = Vector2.ONE
 
 
 func _process(_delta: float) -> void:
