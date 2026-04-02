@@ -9,6 +9,7 @@ signal right_clicked
 @export var size: Vector2
 
 var collision_shape: CollisionMultiHex2D
+var mouse_over: bool = false
 
 
 func _init(
@@ -22,9 +23,13 @@ func _init(
 	shape.changed.connect(_update_collision_shape)
 	add_child(collision_shape)
 	_set_local_tilemap_position(map_local_position)
+	mouse_entered.connect(func(): mouse_over = true)
+	mouse_exited.connect(func(): mouse_over = false)
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if !mouse_over:
+		return
 	if !(event is InputEventMouseButton):
 		return
 	if !event.pressed:
