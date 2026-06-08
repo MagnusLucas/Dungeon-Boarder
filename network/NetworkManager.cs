@@ -6,7 +6,7 @@ public partial class NetworkManager : Node
 	public static NetworkManager Instance { get; private set; }
 	
 	public enum BackendType { ENet, Steam }
-	public BackendType CurrentBackend { get; private set; } = BackendType.ENet;
+	public BackendType CurrentBackend { get; private set; } = BackendType.Steam;
 
 	[Signal] public delegate void PlayerConnectedEventHandler(int peerId, Dictionary<string, string> playerInfo);
 	[Signal] public delegate void PlayerDisconnectedEventHandler(int peerId);
@@ -14,7 +14,6 @@ public partial class NetworkManager : Node
 
 	public PlayerList PlayerList { get; private set; }
 	public LobbyManager LobbyManager { get; private set; }
-	
 	public SteamManager SteamManager { get; private set; }
 
 	public override void _Ready()
@@ -25,9 +24,7 @@ public partial class NetworkManager : Node
 		PlayerList.Name = "PlayerList";
 		AddChild(PlayerList);
 
-		LobbyManager = new LobbyManager();
-		LobbyManager.Name = "LobbyManager";
-		AddChild(LobbyManager);
+		InitLobbyManager();
 
 		SteamManager = new SteamManager();
 		SteamManager.Name = "SteamManager";
@@ -51,6 +48,7 @@ public partial class NetworkManager : Node
 
 	public Error CreateGame() => LobbyManager.CreateGame();
 	public Error JoinGame(string address = "") => LobbyManager.JoinGame(address);
+	public void OpenInviteOverlay() => LobbyManager.OpenInviteOverlay();
 	
 	public void BroadcastTestMessage(string message) => 
 		PlayerList.Rpc("SendTestMessage", message);
@@ -63,7 +61,7 @@ public partial class NetworkManager : Node
 
 	private void OnPeerDisconnected(long peerId)
 	{
-		GD.Print("Peer disconnected with Peer ID = " + peerId);
+		GD.Print($"Peer disconnected: {peerId}, IsServer: {Multiplayer.IsServer()}");
 		PlayerList.Remove(peerId);
 		EmitSignal(SignalName.PlayerDisconnected, peerId);
 	}
@@ -81,8 +79,8 @@ public partial class NetworkManager : Node
 	private void OnServerDisconnected()
 	{
 		Multiplayer.MultiplayerPeer = null;
-		LobbyManager.ClearPeer();
 		PlayerList.Clear();
+		LobbyManager.DisconnectServer();
 		GD.Print("Server disconnected");
 		EmitSignal(SignalName.ServerDisconnected);
 	}
@@ -98,5 +96,48 @@ public partial class NetworkManager : Node
 	{
 		GetTree().ChangeSceneToFile(scenePath);
 	}
+	public void KickPlayer(long peerId)
+	{
+		if (!Multiplayer.IsServer()) return;
+		RpcId(peerId, MethodName.ForceDisconnect);
+		LobbyManager.KickPeer((int)peerId);
+	}
 	
+	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = false, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+	private void ForceDisconnect()
+	{
+		Multiplayer.MultiplayerPeer = null;
+		LobbyManager.DisconnectServer();
+		PlayerList.Clear();
+		EmitSignal(SignalName.ServerDisconnected);
+	}
+	
+	public void SwitchBackend(BackendType backend)
+	{
+		if (Multiplayer.MultiplayerPeer != null)
+		{
+			if (Multiplayer.IsServer())
+				Rpc(MethodName.ForceDisconnect);
+			OnServerDisconnected();
+		}
+
+		CurrentBackend = backend;
+		InitLobbyManager();
+		GD.Print($"[Network] Switched to {backend} backend.");
+	}
+	
+	private void InitLobbyManager()
+	{
+		if (LobbyManager != null)
+		{
+			LobbyManager.QueueFree();
+			LobbyManager = null;
+		}
+	
+		LobbyManager = CurrentBackend == BackendType.Steam
+			? new SteamLobbyManager()
+			: new ENetLobbyManager();
+		LobbyManager.Name = "LobbyManager";
+		AddChild(LobbyManager);
+	}
 }

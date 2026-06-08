@@ -16,6 +16,6 @@ public partial class GameManager : Node
 		var players = NetworkManager.Instance.PlayerList.GetAll();
 		GD.Print($"Amount of players {players.Count}");
 		foreach (var entry in players)
-			GD.Print($"  PeerID: {entry.Key}");
+			GD.Print($"  PeerID: {entry.Key}, Name: {entry.Value["Name"]}");
 	}
 }
