@@ -40,7 +40,6 @@ public partial class SteamLobbyManager : LobbyManager
 	
 		GD.Print("[Steam] Attempting to join lobby: " + lobbyId);
 		_steam.Call("joinLobby", lobbyId);
-		GD.Print("[Steam] joinLobby called, waiting for lobby_entered callback...");
 		return Error.Ok;
 	}
 	
@@ -71,13 +70,9 @@ public partial class SteamLobbyManager : LobbyManager
 		long hostSteamId = _steam.Call("getLobbyOwner", lobbyId).AsInt64();
 		long mySteamId = _steam.Call("getSteamID").AsInt64();
 	
-		GD.Print($"[Steam] Lobby joined: {lobbyId}, host: {hostSteamId}, me: {mySteamId}");
-	
-		if (hostSteamId == mySteamId)
-		{
-			GD.Print("[Steam] We are the host, skipping client setup");
-			return;
-		}
+		GD.Print($"[Steam] Lobby joined: {lobbyId}");
+
+		if (hostSteamId == mySteamId) return;
 
 		GD.Print($"[Steam] Connecting to host: {hostSteamId}");
 		var peer = (MultiplayerPeer)ClassDB.Instantiate("SteamMultiplayerPeer").AsGodotObject();
@@ -93,6 +88,11 @@ public partial class SteamLobbyManager : LobbyManager
 
 	public override void KickPeer(int peerId)
 	{
+		if (_lobbyId == 0) return;
+		var players = NetworkManager.Instance.PlayerList.GetAll();
+		if (!players.TryGetValue(peerId, out var playerInfo)) return;
+		long steamId = long.Parse(playerInfo["SteamId"]);
+		_steam.Call("kickLobbyMember", (long)_lobbyId, steamId);
 	}
 	
 	public override void DisconnectServer()

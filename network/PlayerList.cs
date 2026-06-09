@@ -62,6 +62,13 @@ public partial class PlayerList : Node
 	{
 		int senderId = NetworkManager.Instance.Multiplayer.GetRemoteSenderId();
 		_players[senderId] = incomingInfo;
+	
+		if (NetworkManager.Instance.CurrentBackend == NetworkManager.BackendType.Steam)
+		{
+			long steamId = long.Parse(incomingInfo["SteamId"]);
+			NetworkManager.Instance.SteamManager.RequestAvatar(steamId);
+		}
+	
 		NetworkManager.Instance.EmitSignal(
 			NetworkManager.SignalName.PlayerConnected, senderId, incomingInfo);
 	}

@@ -25,15 +25,13 @@ public partial class SteamManager : Node
 		{
 			IsRunning = true;
 			_steam.Connect("avatar_loaded", Callable.From<long, int, byte[]>(OnAvatarLoaded));
-			CallDeferred("_RequestAvatar");
+			_steam.Connect("persona_state_change", Callable.From<long, int>(OnPersonaStateChange));
+			CallDeferred(MethodName.RequestAvatar, 0L);
 		}
 		else
 		{
 			GD.PrintErr("[Steam] Failed: " + result["verbal"].AsString());
 		}
-		//
-		// foreach (var signal in _steam.GetSignalList())
-		// 	GD.Print("Signal: " + signal);
 	}
 
 	public override void _Process(double delta)
@@ -50,9 +48,16 @@ public partial class SteamManager : Node
 		return _steam.Call("getPersonaName").AsString();
 	}
 	
-	private void _RequestAvatar()
+	public void RequestAvatar(long steamId = 0)
 	{
-		_steam.Call("getPlayerAvatar", 2);
+		if (!IsRunning) return;
+		if (steamId == 0)
+			_steam.Call("getPlayerAvatar", 2);
+		else
+		{
+			_steam.Call("requestUserInformation", steamId, false);
+			_steam.Call("getPlayerAvatar", 2, steamId);
+		}
 	}
 
 	public long GetSteamId()
@@ -68,7 +73,13 @@ public partial class SteamManager : Node
 			image.Resize(128, 128, Image.Interpolation.Lanczos);
 		var texture = ImageTexture.CreateFromImage(image);
 		NetworkManager.Instance.PlayerList.SetSteamAvatar(steamId, texture);
-		GD.Print("Avatar stored for steam ID: " + steamId);
+		NetworkManager.Instance.EmitSignal(NetworkManager.SignalName.AvatarLoaded, steamId);
+	}
+	
+	private void OnPersonaStateChange(long steamId, int flags)
+	{
+		if ((flags & 64) != 0)
+			RequestAvatar(steamId);
 	}
 
 	public override void _ExitTree() => Instance = null;

@@ -11,6 +11,7 @@ public partial class NetworkManager : Node
 	[Signal] public delegate void PlayerConnectedEventHandler(int peerId, Dictionary<string, string> playerInfo);
 	[Signal] public delegate void PlayerDisconnectedEventHandler(int peerId);
 	[Signal] public delegate void ServerDisconnectedEventHandler();
+	[Signal] public delegate void AvatarLoadedEventHandler(long steamId);
 
 	public PlayerList PlayerList { get; private set; }
 	public LobbyManager LobbyManager { get; private set; }
@@ -101,6 +102,8 @@ public partial class NetworkManager : Node
 		if (!Multiplayer.IsServer()) return;
 		RpcId(peerId, MethodName.ForceDisconnect);
 		LobbyManager.KickPeer((int)peerId);
+		PlayerList.Remove(peerId);
+		EmitSignal(SignalName.PlayerDisconnected, (int)peerId);
 	}
 	
 	[Rpc(MultiplayerApi.RpcMode.Authority, CallLocal = false, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
@@ -123,7 +126,6 @@ public partial class NetworkManager : Node
 
 		CurrentBackend = backend;
 		InitLobbyManager();
-		GD.Print($"[Network] Switched to {backend} backend.");
 	}
 	
 	private void InitLobbyManager()

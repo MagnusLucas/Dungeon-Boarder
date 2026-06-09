@@ -26,6 +26,7 @@ func _ready():
 	NetworkManager.SwitchBackend(0)
 	_update_ui()
 	NetworkManager.ServerDisconnected.connect(_on_server_disconnected)
+	NetworkManager.AvatarLoaded.connect(_on_avatar_loaded)
 
 func _on_host_pressed():
 	NetworkManager.CreateGame()
@@ -97,13 +98,15 @@ func _on_switch_network_type():
 
 func _update_ui():
 	var is_steam = NetworkManager.CurrentBackend == 1
-	line_edit.visible = true
-	#line_edit.placeholder_text = "Lobby ID" if is_steam else "IP Address"
+	line_edit.visible = !is_steam
 	invite_button.visible = is_steam
+	join_button.visible = !is_steam
 	switch_backend_button.text = "Switch to Steam" if !is_steam else "Switch to ENet"
-	join_button.text = "Join"
 	_refresh_player_list()
 	
 func _on_server_disconnected():
 	print("server disconnected fired, peer: ", multiplayer.has_multiplayer_peer())
+	_refresh_player_list()
+	
+func _on_avatar_loaded(_steam_id):
 	_refresh_player_list()
