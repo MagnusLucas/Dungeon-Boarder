@@ -16,6 +16,7 @@ public partial class NetworkManager : Node
 	public PlayerList PlayerList { get; private set; }
 	public LobbyManager LobbyManager { get; private set; }
 	public SteamManager SteamManager { get; private set; }
+	public ChatManager ChatManager { get; private set; }
 
 	public override void _Ready()
 	{
@@ -30,6 +31,10 @@ public partial class NetworkManager : Node
 		SteamManager = new SteamManager();
 		SteamManager.Name = "SteamManager";
 		AddChild(SteamManager);
+		
+		ChatManager = new ChatManager();
+		ChatManager.Name = "ChatManager";
+		AddChild(ChatManager);
 		
 		Multiplayer.PeerConnected += OnPeerConnected;
 		Multiplayer.PeerDisconnected += OnPeerDisconnected;
@@ -47,17 +52,21 @@ public partial class NetworkManager : Node
 		}
 	}
 
+	// Wrappers
 	public Error CreateGame() => LobbyManager.CreateGame();
 	public Error JoinGame(string address = "") => LobbyManager.JoinGame(address);
 	public void OpenInviteOverlay() => LobbyManager.OpenInviteOverlay();
-	
 	public void BroadcastTestMessage(string message) => 
 		PlayerList.Rpc("SendTestMessage", message);
+	public void SendChatMessage(string message) => ChatManager.SendMessage(message);
 
 	private void OnPeerConnected(long peerId)
 	{
 		GD.Print("Peer connected with Peer ID = " + peerId);
 		PlayerList.SendLocalInfoTo(peerId);
+
+		if (Multiplayer.IsServer())
+			ChatManager.SendChatHistoryTo(peerId);
 	}
 
 	private void OnPeerDisconnected(long peerId)

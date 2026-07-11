@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://lf5py6m1dqk8"]
+
+[ext_resource type="Script" uid="uid://0eagg2alyfr1" path="res://scenes/test/chat_box.gd" id="1_mrdm8"]
+
+[node name="ChatBox" type="Control" unique_id=561022972]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mrdm8")
