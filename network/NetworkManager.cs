@@ -17,6 +17,7 @@ public partial class NetworkManager : Node
 	public LobbyManager LobbyManager { get; private set; }
 	public SteamManager SteamManager { get; private set; }
 	public ChatManager ChatManager { get; private set; }
+	public AchievementManager AchievementManager { get; private set; }
 
 	public override void _Ready()
 	{
@@ -35,6 +36,10 @@ public partial class NetworkManager : Node
 		ChatManager = new ChatManager();
 		ChatManager.Name = "ChatManager";
 		AddChild(ChatManager);
+		
+		AchievementManager = new AchievementManager();
+		AchievementManager.Name = "AchievementManager";
+		AddChild(AchievementManager);
 		
 		Multiplayer.PeerConnected += OnPeerConnected;
 		Multiplayer.PeerDisconnected += OnPeerDisconnected;
@@ -59,6 +64,8 @@ public partial class NetworkManager : Node
 	public void BroadcastTestMessage(string message) => 
 		PlayerList.Rpc("SendTestMessage", message);
 	public void SendChatMessage(string message) => ChatManager.SendMessage(message);
+	public void UnlockAchievement(string achievementId) => AchievementManager.Unlock(achievementId);
+	public void ResetAchievements() => AchievementManager.ResetAll();
 
 	private void OnPeerConnected(long peerId)
 	{

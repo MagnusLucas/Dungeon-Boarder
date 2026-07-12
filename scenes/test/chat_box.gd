@@ -1,4 +1,3 @@
-## ChatBox.gd
 extends Control
 
 @export var panel_size: Vector2 = Vector2(360, 220)

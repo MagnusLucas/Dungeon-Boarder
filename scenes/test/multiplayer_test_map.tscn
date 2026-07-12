@@ -1,125 +1,12 @@
 [gd_scene format=3 uid="uid://bqmrxym8t8dnh"]
 
+[ext_resource type="Script" uid="uid://bcgsjj11tkq0c" path="res://scenes/test/achievements_test.gd" id="1_3ua7b"]
+[ext_resource type="Script" uid="uid://bn2yv4cbfdrhq" path="res://scenes/test/multiplayer_test_map.gd" id="1_7yt7k"]
 [ext_resource type="Script" uid="uid://0eagg2alyfr1" path="res://scenes/test/chat_box.gd" id="2_3ua7b"]
 [ext_resource type="PackedScene" uid="uid://db5ehxjesqnl4" path="res://scenes/test/player_list_panel.tscn" id="2_u3coo"]
 
-[sub_resource type="GDScript" id="GDScript_70rt8"]
-script/source = "extends Node2D
-
-@onready var host_button = $VBoxContainer/HBoxContainer/Host
-@onready var join_button = $VBoxContainer/HBoxContainer/Join
-@onready var invite_button = $VBoxContainer/HBoxContainer/Invite
-@onready var test_message_button = $VBoxContainer3/TestMessage
-@onready var start_game_button = $VBoxContainer3/StartGame
-@onready var line_edit = $VBoxContainer/LineEdit2
-@onready var player_list = $PlayerListPanel/VBoxContainer/PlayerEntryContainer
-@onready var switch_backend_button = $SwitchBackend
-
-const PlayerEntry = preload(\"res://scenes/test/player_entry.tscn\")
-
-func _ready():
-	host_button.pressed.connect(_on_host_pressed)
-	join_button.pressed.connect(_on_join_pressed)
-	invite_button.pressed.connect(func(): NetworkManager.OpenInviteOverlay())
-		
-	test_message_button.pressed.connect(_on_test_message_pressed)
-	start_game_button.pressed.connect(_on_start_game_pressed)
-	
-	NetworkManager.PlayerConnected.connect(_on_player_connected)
-	NetworkManager.PlayerDisconnected.connect(_on_player_disconnected)
-	
-	switch_backend_button.pressed.connect(_on_switch_network_type)
-	NetworkManager.SwitchBackend(0)
-	_update_ui()
-	NetworkManager.ServerDisconnected.connect(_on_server_disconnected)
-	NetworkManager.AvatarLoaded.connect(_on_avatar_loaded)
-
-func _on_host_pressed():
-	NetworkManager.CreateGame()
-
-func _on_join_pressed():
-	if NetworkManager.CurrentBackend == 1:
-		NetworkManager.JoinGame(line_edit.text)
-	else:
-		var ip_address = line_edit.text
-		if ip_address == \"\":
-			ip_address = \"127.0.0.1\"
-		NetworkManager.JoinGame(ip_address)
-
-func _on_test_message_pressed():
-	NetworkManager.BroadcastTestMessage(\"Everything goes wrong\")
-	
-func _on_start_game_pressed():
-	NetworkManager.StartGame(\"res://scenes/map/map.tscn\")
-
-func _on_player_connected(_peer_id, _player_info):
-	_refresh_player_list()
-
-func _on_player_disconnected(_peer_id):
-	_refresh_player_list()
-
-func _refresh_player_list():
-	
-	for child in player_list.get_children():
-		child.queue_free()
-	
-	if not multiplayer.has_multiplayer_peer():
-		get_node(\"PlayerListPanel\").update_count(0)
-		return
-	
-	var players = NetworkManager.PlayerList.GetAll()
-	var ids = players.keys()
-	ids.sort()
-	
-	get_node(\"PlayerListPanel\").update_count(players.size())
-	
-	for id in ids:
-		var entry = PlayerEntry.instantiate()
-		
-		if NetworkManager.CurrentBackend == 1:
-			var steam_id = int(players[id][\"SteamId\"])
-			var texture = NetworkManager.PlayerList.GetSteamAvatar(steam_id)
-			if texture:
-				entry.get_node(\"PlayerIcon\").texture = texture
-		
-		entry.get_node(\"PlayerName\").text = players[id][\"Name\"]
-		
-		var kick_button = entry.get_node(\"MarginContainer/KickButton\")
-		if multiplayer.is_server() and id != multiplayer.get_unique_id():
-			kick_button.pressed.connect(_on_kick_pressed.bind(id))
-		else:
-			kick_button.hide()
-		
-		player_list.add_child(entry)
-		
-func _on_kick_pressed(peer_id):
-	NetworkManager.KickPlayer(peer_id)
-	
-func _on_switch_network_type():
-	if NetworkManager.CurrentBackend == 0:
-		NetworkManager.SwitchBackend(1)
-	else:
-		NetworkManager.SwitchBackend(0)
-	_update_ui()
-
-func _update_ui():
-	var is_steam = NetworkManager.CurrentBackend == 1
-	line_edit.visible = !is_steam
-	invite_button.visible = is_steam
-	join_button.visible = !is_steam
-	switch_backend_button.text = \"Switch to Steam\" if !is_steam else \"Switch to ENet\"
-	_refresh_player_list()
-	
-func _on_server_disconnected():
-	print(\"server disconnected fired, peer: \", multiplayer.has_multiplayer_peer())
-	_refresh_player_list()
-	
-func _on_avatar_loaded(_steam_id):
-	_refresh_player_list()
-"
-
 [node name="MultiplayerTestMap" type="Node2D" unique_id=1471437074]
-script = SubResource("GDScript_70rt8")
+script = ExtResource("1_7yt7k")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1596553307]
 offset_left = 16.0
@@ -178,11 +65,20 @@ offset_right = 288.0
 offset_bottom = 48.0
 text = "Current backend: "
 
-[node name="Control" type="Control" parent="." unique_id=1164206981]
+[node name="Chat" type="Control" parent="." unique_id=1164206981]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 376.0
-offset_top = 224.0
-offset_right = 416.0
-offset_bottom = 264.0
+offset_left = 328.0
+offset_top = 216.0
+offset_right = 470.0
+offset_bottom = 248.0
 script = ExtResource("2_3ua7b")
+
+[node name="AchievementTestPanel" type="Control" parent="." unique_id=960152478]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 96.0
+offset_top = 296.0
+offset_right = 344.0
+offset_bottom = 336.0
+script = ExtResource("1_3ua7b")

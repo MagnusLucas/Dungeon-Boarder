@@ -83,4 +83,28 @@ public partial class SteamManager : Node
 	}
 
 	public override void _ExitTree() => Instance = null;
+	
+	public void UnlockAchievement(string achievementId)
+	{
+		if (!IsRunning) return;
+
+		_steam.Call("setAchievement", achievementId);
+		_steam.Call("storeStats");
+	}
+
+	public bool IsAchievementUnlocked(string achievementId)
+	{
+		if (!IsRunning) return false;
+
+		var result = (Dictionary)_steam.Call("getAchievement", achievementId);
+		return result.ContainsKey("achieved") && result["achieved"].AsBool();
+	}
+
+	public void ResetAllAchievements()
+	{
+		if (!IsRunning) return;
+
+		_steam.Call("resetAllStats", true); // true = also reset achievements, not just stats
+		_steam.Call("storeStats");
+	}
 }
