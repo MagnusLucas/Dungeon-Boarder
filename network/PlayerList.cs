@@ -11,10 +11,27 @@ public partial class PlayerList : Node
 	};
 
 	public Dictionary<long, Dictionary<string, string>> GetAll() => _players;
+	private Dictionary<long, ImageTexture> _playerAvatars = new();
+	private Dictionary<long, ImageTexture> _steamAvatars = new();
+
+	public void SetSteamAvatar(long steamId, ImageTexture texture)
+	{
+		_steamAvatars[steamId] = texture;
+	}
+
+	public ImageTexture GetSteamAvatar(long steamId)
+	{
+		return _steamAvatars.TryGetValue(steamId, out var texture) ? texture : null;
+	}
 
 	public void RegisterLocalPlayer()
 	{
 		long peerId = NetworkManager.Instance.Multiplayer.GetUniqueId();
+		_localPlayerInfo["SteamId"] = NetworkManager.Instance.SteamManager.GetSteamId().ToString();
+		_localPlayerInfo["Name"] = NetworkManager.Instance.CurrentBackend == NetworkManager.BackendType.Steam
+			? NetworkManager.Instance.SteamManager.GetPersonaName()
+			: "Player " + peerId;
+
 		_players[peerId] = _localPlayerInfo;
 		NetworkManager.Instance.EmitSignal(
 			NetworkManager.SignalName.PlayerConnected, (int)peerId, _localPlayerInfo);
@@ -45,6 +62,13 @@ public partial class PlayerList : Node
 	{
 		int senderId = NetworkManager.Instance.Multiplayer.GetRemoteSenderId();
 		_players[senderId] = incomingInfo;
+	
+		if (NetworkManager.Instance.CurrentBackend == NetworkManager.BackendType.Steam)
+		{
+			long steamId = long.Parse(incomingInfo["SteamId"]);
+			NetworkManager.Instance.SteamManager.RequestAvatar(steamId);
+		}
+	
 		NetworkManager.Instance.EmitSignal(
 			NetworkManager.SignalName.PlayerConnected, senderId, incomingInfo);
 	}

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dy1w5rv6kfin3"]
+
+[node name="HBoxContainer" type="HBoxContainer" unique_id=1249970546]
+offset_right = 192.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="PlayerIcon" type="TextureRect" parent="." unique_id=2069670006]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="PlayerName" type="Label" parent="." unique_id=486539986]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Test"
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1003026582]
+layout_mode = 2
+theme_override_constants/margin_right = 5
+
+[node name="KickButton" type="Button" parent="MarginContainer" unique_id=696447174]
+layout_mode = 2
+text = "Kick Player
+
+"

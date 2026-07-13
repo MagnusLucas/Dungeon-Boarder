@@ -1,13 +1,18 @@
 [gd_scene format=3 uid="uid://bqmrxym8t8dnh"]
 
-[ext_resource type="Script" uid="uid://bn2yv4cbfdrhq" path="res://scenes/test/multiplayer_test_map.gd" id="1_70rt8"]
+[ext_resource type="Script" uid="uid://bcgsjj11tkq0c" path="res://scenes/test/achievements_test.gd" id="1_3ua7b"]
+[ext_resource type="Script" uid="uid://bn2yv4cbfdrhq" path="res://scenes/test/multiplayer_test_map.gd" id="1_7yt7k"]
+[ext_resource type="Script" uid="uid://0eagg2alyfr1" path="res://scenes/test/chat_box.gd" id="2_3ua7b"]
+[ext_resource type="PackedScene" uid="uid://db5ehxjesqnl4" path="res://scenes/test/player_list_panel.tscn" id="2_u3coo"]
 
 [node name="MultiplayerTestMap" type="Node2D" unique_id=1471437074]
-script = ExtResource("1_70rt8")
+script = ExtResource("1_7yt7k")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1596553307]
-offset_right = 128.0
-offset_bottom = 104.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 144.0
+offset_bottom = 120.0
 
 [node name="LineEdit2" type="LineEdit" parent="VBoxContainer" unique_id=118615713]
 layout_mode = 2
@@ -15,6 +20,7 @@ placeholder_text = "\"127.0.0.1\""
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=2112454819]
 layout_mode = 2
+alignment = 1
 
 [node name="Host" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1716342857]
 layout_mode = 2
@@ -27,16 +33,52 @@ text = "Join
 
 "
 
-[node name="TestMessage" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=580898628]
+[node name="Invite" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=582206425]
+layout_mode = 2
+text = "Invite"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="." unique_id=1213313713]
+offset_left = 24.0
+offset_top = 112.0
+offset_right = 136.0
+offset_bottom = 178.0
+
+[node name="TestMessage" type="Button" parent="VBoxContainer3" unique_id=580898628]
 layout_mode = 2
 text = "Test Message"
 
-[node name="StartGame" type="Button" parent="VBoxContainer" unique_id=1720875174]
+[node name="StartGame" type="Button" parent="VBoxContainer3" unique_id=1720875174]
 layout_mode = 2
 text = "Start Game
 "
 
-[node name="ItemList" type="ItemList" parent="." unique_id=456348840]
-offset_left = 312.0
-offset_right = 632.0
-offset_bottom = 192.0
+[node name="PlayerListPanel" parent="." unique_id=665133216 instance=ExtResource("2_u3coo")]
+offset_left = 416.0
+offset_top = 16.0
+offset_right = 640.0
+offset_bottom = 80.0
+
+[node name="SwitchBackend" type="Button" parent="." unique_id=1135868285]
+offset_left = 192.0
+offset_top = 16.0
+offset_right = 288.0
+offset_bottom = 48.0
+text = "Current backend: "
+
+[node name="Chat" type="Control" parent="." unique_id=1164206981]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 328.0
+offset_top = 216.0
+offset_right = 470.0
+offset_bottom = 248.0
+script = ExtResource("2_3ua7b")
+
+[node name="AchievementTestPanel" type="Control" parent="." unique_id=960152478]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 96.0
+offset_top = 296.0
+offset_right = 344.0
+offset_bottom = 336.0
+script = ExtResource("1_3ua7b")

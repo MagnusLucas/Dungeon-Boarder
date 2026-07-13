@@ -14,7 +14,6 @@ public partial class SteamManager : Node
 
 		if (!Engine.HasSingleton("Steam"))
 		{
-			GD.PrintErr("[Steam] Not found — is GodotSteam loaded?");
 			return;
 		}
 
@@ -25,7 +24,9 @@ public partial class SteamManager : Node
 		if (result["status"].AsInt32() == 0)
 		{
 			IsRunning = true;
-			GD.Print("[Steam] Running! Name: " + _steam.Call("getPersonaName").AsString());
+			_steam.Connect("avatar_loaded", Callable.From<long, int, byte[]>(OnAvatarLoaded));
+			_steam.Connect("persona_state_change", Callable.From<long, int>(OnPersonaStateChange));
+			CallDeferred(MethodName.RequestAvatar, 0L);
 		}
 		else
 		{
@@ -36,8 +37,74 @@ public partial class SteamManager : Node
 	public override void _Process(double delta)
 	{
 		if (IsRunning)
+		{
 			_steam.Call("run_callbacks");
+		}
+	}
+
+	public string GetPersonaName()
+	{
+		if (!IsRunning) return "Player";
+		return _steam.Call("getPersonaName").AsString();
+	}
+	
+	public void RequestAvatar(long steamId = 0)
+	{
+		if (!IsRunning) return;
+		if (steamId == 0)
+			_steam.Call("getPlayerAvatar", 2);
+		else
+		{
+			_steam.Call("requestUserInformation", steamId, false);
+			_steam.Call("getPlayerAvatar", 2, steamId);
+		}
+	}
+
+	public long GetSteamId()
+	{
+		if (!IsRunning) return 0;
+		return _steam.Call("getSteamID").AsInt64();
+	}
+
+	private void OnAvatarLoaded(long steamId, int avatarSize, byte[] buffer)
+	{
+		var image = Image.CreateFromData(avatarSize, avatarSize, false, Image.Format.Rgba8, buffer);
+		if (avatarSize > 128)
+			image.Resize(128, 128, Image.Interpolation.Lanczos);
+		var texture = ImageTexture.CreateFromImage(image);
+		NetworkManager.Instance.PlayerList.SetSteamAvatar(steamId, texture);
+		NetworkManager.Instance.EmitSignal(NetworkManager.SignalName.AvatarLoaded, steamId);
+	}
+	
+	private void OnPersonaStateChange(long steamId, int flags)
+	{
+		if ((flags & 64) != 0)
+			RequestAvatar(steamId);
 	}
 
 	public override void _ExitTree() => Instance = null;
+	
+	public void UnlockAchievement(string achievementId)
+	{
+		if (!IsRunning) return;
+
+		_steam.Call("setAchievement", achievementId);
+		_steam.Call("storeStats");
+	}
+
+	public bool IsAchievementUnlocked(string achievementId)
+	{
+		if (!IsRunning) return false;
+
+		var result = (Dictionary)_steam.Call("getAchievement", achievementId);
+		return result.ContainsKey("achieved") && result["achieved"].AsBool();
+	}
+
+	public void ResetAllAchievements()
+	{
+		if (!IsRunning) return;
+
+		_steam.Call("resetAllStats", true); // true = also reset achievements, not just stats
+		_steam.Call("storeStats");
+	}
 }

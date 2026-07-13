@@ -8,10 +8,23 @@
 
 config_version=5
 
+[addons]
+
+resources_spreadsheet_view/array_color_tint=100.0
+resources_spreadsheet_view/color_rows=true
+resources_spreadsheet_view/array_min_width=128.0
+resources_spreadsheet_view/resource_preview_size=32.0
+resources_spreadsheet_view/clip_headers=false
+resources_spreadsheet_view/dupe_arrays=true
+resources_spreadsheet_view/context_menu_on_leftclick=false
+resources_spreadsheet_view/fold_docks=true
+resources_spreadsheet_view/resource_cell_label_mode=1
+resources_spreadsheet_view/freeze_first_column=true
+
 [application]
 
 config/name="Dungeon-Boarder"
-run/main_scene="uid://jycbtgj6v1ic"
+run/main_scene="uid://bqmrxym8t8dnh"
 config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
 
 [autoload]
@@ -21,6 +34,16 @@ NetworkManager="*uid://djaodfmco3gfj"
 [dotnet]
 
 project/assembly_name="Dungeon-Boarder"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/resources_spreadsheet_view/plugin.cfg")
+
+[layer_names]
+
+2d_physics/layer_1="boards"
+2d_physics/layer_2="characters"
+2d_physics/layer_3="node_mover"
 
 [physics]
 
