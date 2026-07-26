@@ -26,7 +26,7 @@ func _setup_random_stock() -> void:
 		hsc.min_hex_tile_size = min_hex_tile_size
 		var chr := Character.new()
 		# Line below might require duplication, depending on CharacterData content
-		chr.character_data = character_pool.get_random_character_data()
+		chr.set_character(character_pool.get_random_character_data())
 		hsc.add_child(chr)
 		add_child(hsc)
 		chr.pick_up_requested.connect(character_picked_up.emit.bind(chr))

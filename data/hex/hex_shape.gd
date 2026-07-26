@@ -54,3 +54,14 @@ func get_points(hex_size: Vector2) -> Array[Vector2]:
 			tile_boarder.get_begin(hex_size) +
 			_get_hex_position_offset(tile_boarder.owner, hex_size))
 	return points
+
+
+func has_coordinate(coordinate: Vector2i) -> bool:
+	return hex_coordinates.has(coordinate)
+
+
+func fits_in(shape: HexShape, position: Vector2i = Vector2i.ZERO) -> bool:
+	for hex_coordinate: Vector2i in hex_coordinates:
+		if !shape.has_coordinate(hex_coordinate + position):
+			return false
+	return true

@@ -41,6 +41,7 @@ script = ExtResource("1_ewmal")
 
 [node name="StockAndMap" type="VBoxContainer" parent="." unique_id=498302665]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="TavernStock" parent="StockAndMap" unique_id=1907181505 instance=ExtResource("1_mwr1b")]
 layout_mode = 2

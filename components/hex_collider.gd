@@ -18,6 +18,8 @@ func _init(
 		map_local_position: Vector2) -> void:
 	shape = tilemap_shape
 	size = hex_size
+	collision_layer = 0
+	collision_mask = 0
 	collision_shape = CollisionMultiHex2D.new(shape, size)
 	_update_collision_shape()
 	shape.changed.connect(_update_collision_shape)
