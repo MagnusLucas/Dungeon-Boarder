@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CharacterBackendData" format=3 uid="uid://dkl4h7se50prh"]
+
+[ext_resource type="Script" uid="uid://bhphkm87pm604" path="res://data/character/traits/CharacterTrait.cs" id="1_ubu4v"]
+[ext_resource type="Script" uid="uid://c2gqvoaf7di4k" path="res://data/character/CharacterBackendData.cs" id="2_pkxba"]
+[ext_resource type="Script" uid="uid://wxvb363sv0g5" path="res://data/character/traits/RegenerationTrait.cs" id="2_q1cfs"]
+[ext_resource type="Script" uid="uid://bc1vqyuyqxe5g" path="res://data/character/traits/AttackBuffTrait.cs" id="3_q1cfs"]
+
+[sub_resource type="Resource" id="Resource_q1cfs"]
+script = ExtResource("3_q1cfs")
+metadata/_custom_type_script = "uid://bc1vqyuyqxe5g"
+
+[sub_resource type="Resource" id="Resource_cdqr1"]
+script = ExtResource("2_q1cfs")
+metadata/_custom_type_script = "uid://wxvb363sv0g5"
+
+[resource]
+script = ExtResource("2_pkxba")
+Traits = Array[ExtResource("1_ubu4v")]([SubResource("Resource_q1cfs"), SubResource("Resource_cdqr1")])
+metadata/_custom_type_script = "uid://c2gqvoaf7di4k"
